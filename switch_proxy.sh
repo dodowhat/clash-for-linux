@@ -8,14 +8,6 @@ TYPE_WIDTH=16
 
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
 
-if [[ ! -z "$1" ]] && [[ "$1" != "-s" ]]
-then
-    printf "[OPTIONS]\n"
-    printf "%-${FLAG_WIDTH}s %-${NAME_WIDTH}s\n" "" "show status"
-    printf "%-${FLAG_WIDTH}s %-${NAME_WIDTH}s\n" "-s" "switch proxy"
-    exit 1
-fi
-
 PROXIES="$(curl -s $EXTERNAL_CONTROLLER/proxies | jq '.proxies')"
 
 GROUP=$(echo $PROXIES | jq 'map(select(.type == "Selector")) | .[] | [{group: .name}] + .all | select(contains(["DIRECT"]) | not)' | jq -r '.[0].group')
@@ -43,11 +35,6 @@ do
     fi
     printf "%-${FLAG_WIDTH}s %-${NAME_WIDTH}s \t %-${TYPE_WIDTH}s\n" "$FLAG" "${NAMES[INDEX]}" "${TYPES[INDEX]}"
 done
-
-if [ -z "$1" ]
-then
-    exit 1
-fi
 
 printf "\nType number in '[]', press 'Enter' to confirm\n"
 

@@ -7,6 +7,8 @@ then
     mkdir runtime
 fi
 
+cd runtime
+
 which curl > /dev/null 2>&1
 
 if [ $? -ne 0 ]
@@ -21,7 +23,7 @@ then
     exit 1
 fi
 
-FILENAME="runtime/subscription.json"
+FILENAME="subscription.json"
 
 if [ ! -f "$FILENAME" ]
 then
@@ -36,7 +38,7 @@ then
     exit 1
 fi
 
-FILENAME="$1.yaml"
+FILENAME="$1.yml"
 
 FILENAME_TEMP="${FILENAME}.temp"
 
