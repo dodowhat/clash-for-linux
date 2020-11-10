@@ -19,5 +19,6 @@ HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X PUT -H "${HTTP_HEADER}" -d
 if [ ${HTTP_CODE} -ge 200 ] && [ ${HTTP_CODE} -lt 300 ]
 then
     echo "{\"config-file\": \"${CONFIG_PATH_ABS}\"}" | jq '.' > runtime/config-file.json
+    cp configs/rule-proxy.json runtime/rule-proxy.json
     echo "succeed"
 fi
