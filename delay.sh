@@ -1,5 +1,11 @@
 #!/bin/bash
 
+PID=$(pidof clash)
+if [ -z "$PID" ]; then
+    echo "clash not running"
+    exit 1
+fi
+
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
 
 TIMEOUT=5000

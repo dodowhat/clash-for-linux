@@ -1,5 +1,11 @@
 #!/bin/bash
 
+PID=$(pidof clash)
+if [ -z "$PID" ]; then
+    echo "clash not running"
+    exit 1
+fi
+
 NAME_WIDTH=35
 
 FLAG_WIDTH=25

@@ -2,6 +2,12 @@
 
 cd $(dirname $(realpath $0))
 
+PID=$(pidof clash)
+if [ -z "$PID" ]; then
+    echo "clash not running"
+    exit 1
+fi
+
 if [ -z "$1" ]
 then
     echo "Usage: $(basename $0) [CONFIG_FILE]"
