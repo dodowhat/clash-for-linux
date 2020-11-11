@@ -40,12 +40,18 @@ function create_if_not_exists
     fi
 }
 
-create_if_not_exists "external-controller.json"
+if [ ! -f "${RUNTIME_PATH}/Country.mmdb" ]
+then
+    ln -s $(realpath core/Country.mmdb) ${RUNTIME_PATH}/
+fi
 
+create_if_not_exists "external-controller.json"
 
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
 
 nohup core/clash -d runtime -ext-ctl ${EXTERNAL_CONTROLLER} > /dev/null 2>&1 &
+
+wait
 
 create_if_not_exists "config-file.json"
 
