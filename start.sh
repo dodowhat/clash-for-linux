@@ -23,9 +23,23 @@ if [ ! -z "${PID}" ]; then
     kill -9 ${PID}
 fi
 
+FILENAME="external-controller.json"
+
+if [ ! -f "runtime/${FILENAME}" ]
+then
+    cp configs/${FILENAME} runtime/${FILENAME}
+fi
+
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
 
 nohup core/clash -d runtime -ext-ctl ${EXTERNAL_CONTROLLER} > /dev/null 2>&1 &
+
+FILENAME="config-file.json"
+
+if [ ! -f "runtime/${FILENAME}" ]
+then
+    cp configs/${FILENAME} runtime/${FILENAME}
+fi
 
 CONFIG_FILE=$(cat runtime/config-file.json | jq -r '."config-file"')
 
@@ -35,6 +49,13 @@ if [ ! -z "${CONFIG_FILE}" ]
 then
     CONFIG_FILE=$(realpath ${CONFIG_FILE})
     curl -X PUT -H "${HTTP_HEADER}" -d "{\"path\": \"${CONFIG_FILE}\"}" "${EXTERNAL_CONTROLLER}/configs"
+fi
+
+FILENAME="rule-proxy.json"
+
+if [ ! -f "runtime/${FILENAME}" ]
+then
+    cp configs/${FILENAME} runtime/${FILENAME}
 fi
 
 RULE_PROXY=$(cat runtime/rule-proxy.json)
@@ -47,6 +68,13 @@ if [ ! -z "${GROUP}" ] && [ ! -z "${PROXY}" ]
 then
     curl -X PUT -H "${HTTP_HEADER}" -d "{\"name\": \"${PROXY}\"}" "${EXTERNAL_CONTROLLER}/proxies/${GROUP}"
     curl -X PUT -H "${HTTP_HEADER}" -d "{\"name\": \"${PROXY}\"}" "${EXTERNAL_CONTROLLER}/proxies/GLOBAL"
+fi
+
+FILENAME="configs.json"
+
+if [ ! -f "runtime/${FILENAME}" ]
+then
+    cp configs/${FILENAME} runtime/${FILENAME}
 fi
 
 CONFIGS=$(cat runtime/configs.json)
