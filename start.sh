@@ -51,8 +51,6 @@ EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-
 
 nohup core/clash -d runtime -ext-ctl ${EXTERNAL_CONTROLLER} > /dev/null 2>&1 &
 
-wait
-
 create_if_not_exists "config-file.json"
 
 CONFIG_FILE=$(cat runtime/config-file.json | jq -r '."config-file"')
