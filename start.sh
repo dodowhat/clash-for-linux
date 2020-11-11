@@ -27,7 +27,7 @@ FILENAME="external-controller.json"
 
 if [ ! -f "runtime/${FILENAME}" ]
 then
-    cp configs/${FILENAME} runtime/${FILENAME}
+    cp configs/${FILENAME} runtime/
 fi
 
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
@@ -38,7 +38,7 @@ FILENAME="config-file.json"
 
 if [ ! -f "runtime/${FILENAME}" ]
 then
-    cp configs/${FILENAME} runtime/${FILENAME}
+    cp configs/${FILENAME} runtime/
 fi
 
 CONFIG_FILE=$(cat runtime/config-file.json | jq -r '."config-file"')
@@ -55,7 +55,7 @@ FILENAME="rule-proxy.json"
 
 if [ ! -f "runtime/${FILENAME}" ]
 then
-    cp configs/${FILENAME} runtime/${FILENAME}
+    cp configs/${FILENAME} runtime/
 fi
 
 RULE_PROXY=$(cat runtime/rule-proxy.json)
@@ -74,7 +74,7 @@ FILENAME="configs.json"
 
 if [ ! -f "runtime/${FILENAME}" ]
 then
-    cp configs/${FILENAME} runtime/${FILENAME}
+    cp configs/${FILENAME} runtime/
 fi
 
 CONFIGS=$(cat runtime/configs.json)
