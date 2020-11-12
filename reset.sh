@@ -9,8 +9,4 @@ fi
 
 cp configs/* runtime/
 
-if [ -f "runtime/Country.mmdb" ]
-then
-    rm "runtime/Country.mmdb"
-fi
-ln -s $(realpath core/Country.mmdb) runtime/
+ln -s -f $(realpath core/Country.mmdb) runtime/

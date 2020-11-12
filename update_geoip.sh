@@ -14,7 +14,7 @@ cd core
 
 FILENAME="Country.mmdb"
 
-FILENAME_TEMP="${FILENAME}.temp"
+FILENAME_TEMP=$(mktemp)
 
 curl -L "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/${FILENAME}" --output ${FILENAME_TEMP}
 

@@ -34,13 +34,13 @@ URL=$(cat ${FILENAME} | jq -r ".$1")
 
 if [[ ${URL} == "null" ]]
 then
-    echo "Subscription name not exists"
+    echo "Subscription name not exists: $1"
     exit 1
 fi
 
 FILENAME="$1.yml"
 
-FILENAME_TEMP="${FILENAME}.temp"
+FILENAME_TEMP=$(mktemp)
 
 curl -L ${URL} --output ${FILENAME_TEMP}
 
