@@ -1,6 +1,6 @@
 # clash-for-linux
 
- Clash command line management tools on Linux.
+ Clash command line management tools.
 
 Principle: [Clash Service Management on Linux](https://dodowhat.github.io/blog/posts/clash-service-management-on-linux/)
 
@@ -33,18 +33,16 @@ Most of them don't need arguments, just run it.
 To update config subscription, you need to maintain url list in `runtime/subscription.json`
 
     {
-        "NAME1": "URL1",
-        "NAME2": "URL2"
+        "example1": "URL1",
+        "example2": "URL2"
     }
     
 and then run
 
-    ./subscribe.sh NAME1
+    ./subscribe.sh example1
     
-To switch config file, run
-
-    ./switch_config.sh [CONFIG_FILE_PATH]
+it will download the config file to `runtime/example1.yml`
     
-for example
+to switch config file, run
 
-    ./switch_config.sh runtime/config.yml
+    ./switch_config.sh runtime/example1.yml
