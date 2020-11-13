@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $(dirname $(realpath $0))
+
 PID=$(pidof clash)
 if [ -z "$PID" ]; then
     echo "clash not running"
