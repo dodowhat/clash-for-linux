@@ -12,9 +12,18 @@ fi
 
 cd core
 
-VERSION=$(curl https://api.github.com/repos/Dreamacro/clash/tags | jq -r '.[0] | .name')
+CURRENT_VERSION=$(./clash -v | awk '{print $2}')
+echo $CURRENT_VERSION
 
-BASENAME="clash-linux-amd64-${VERSION}"
+LATEST_VERSION=$(curl https://api.github.com/repos/Dreamacro/clash/tags | jq -r '.[0] | .name')
+echo $LATEST_VERSION
+
+if [[ "${CURRENT_VERSION}" == "${LATEST_VERSION}" ]]; then
+    echo "Already up to date."
+    exit 1
+fi
+
+BASENAME="clash-linux-amd64-${LATEST_VERSION}"
 
 FILENAME="${BASENAME}.gz"
 
