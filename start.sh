@@ -49,6 +49,11 @@ create_if_not_exists "external-controller.json"
 
 EXTERNAL_CONTROLLER="$(cat runtime/external-controller.json | jq -r '."external-controller"')"
 
+if [ ! -d "${RUNTIME_PATH}/ui" ]
+then
+    tar zxf ui.tar.gz -C runtime
+fi
+
 nohup core/clash -d runtime -ext-ctl ${EXTERNAL_CONTROLLER} -ext-ui ui > /dev/null 2>&1 &
 
 create_if_not_exists "config-file.json"

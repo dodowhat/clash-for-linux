@@ -23,7 +23,12 @@ FILENAME="${DIRNAME}.zip"
 curl -L ${URL} --output ${FILENAME}
 
 if [ $? -eq 0 ]; then
-    unzip ${FILENAME}
+    unzip -q ${FILENAME}
     mv ${DIRNAME} ui
+    tar zcf ui.tar.gz ui
     rm ${FILENAME}
+    rm -rf ui
+    if [ -d "runtime" ]; then
+        tar zxf ui.tar.gz -C runtime
+    fi
 fi;
